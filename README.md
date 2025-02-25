@@ -49,7 +49,3 @@ npx expo start
 - [React Native Docs](https://reactnative.dev/)  
 - [Expo Docs](https://docs.expo.dev/)  
 - [Supabase Docs](https://supabase.com/docs)  
-
----
-
-This should ensure that your team understands why Expo Go is needed and how to set it up. Let me know if you need any other clarifications! 🚀
