@@ -1,7 +1,3 @@
-Here’s an improved version of your README with a detailed explanation about installing Expo Go:  
-
----
-
 # NEUVIS - Virtual ID System  
 
 NEUVIS is a visitor management system for school security, built using **React Native, TypeScript, Expo, and Supabase**.  
