@@ -1,4 +1,4 @@
-# NEUVIS - Virtual ID System  
+# NEUVIS - Virtual Identification System  
 
 NEUVIS is a visitor management system for school security, built using **React Native, TypeScript, Expo, and Supabase**.  
 
@@ -31,7 +31,7 @@ Expo Go allows us to run and test our React Native app directly on a physical de
 
 Once installed, you'll be able to scan the QR code provided by `npx expo start` to run the app on your phone.  
 
-### 4️⃣ Set Up Environment Variables  
+### 4️⃣ Set Up Environment Variables (working on🚧) 
 Create a `.env` file in the root directory and add:  
 ```
 SUPABASE_URL=your_supabase_url
