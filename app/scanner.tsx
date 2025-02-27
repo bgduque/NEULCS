@@ -47,7 +47,7 @@ export default function App() {
       {startCamera && hasPermission ? (
         <CameraView style={{ flex: 1, width: '100%' }} ref={cameraRef} facing="back">
          
-          <TouchableOpacity style={styles.backButton} onPress={() => router.push('/')}>
+          <TouchableOpacity style={styles.backButton} onPress={() => router.push('/landing')}>
             <Ionicons name="arrow-back" size={24} color="white" />
           </TouchableOpacity>
 
