@@ -2,42 +2,59 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
+import { useRouter } from 'expo-router';
+import PrivacyLink from '../components/PrivacyLink';
 
-export default function Home() {
+// We could create these components separately if they'll be reused elsewhere in the admin interface
+const Logo = () => (
+  <Image 
+    source={require('../assets/images/NEULogo.png')} 
+    style={styles.logo}
+  />
+);
+
+const Title = () => (
+  <View style={styles.titleContainer}>
+    <Text style={styles.title}>NEUVIS</Text>
+    <Text style={styles.subtitle}>
+      New Era University Visitor Identification System
+    </Text>
+  </View>
+);
+
+const HeroImage = () => (
+  <Image 
+    source={require('../assets/images/HeroImage.png')}
+    style={styles.qrCode}
+  />
+);
+
+const SignInButton = ({ onPress }: { onPress: () => void }) => (
+  <TouchableOpacity 
+    style={styles.signInButton}
+    onPress={onPress}
+  >
+    <Text style={styles.signInText}>Sign in using Google Account</Text>
+  </TouchableOpacity>
+);
+
+export default function Home() { 
+  const router = useRouter();
+
+  const handleSignIn = () => {
+    router.push('/landing');
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
       
       <View style={styles.content}>
-        {/* Logo */}
-        <Image 
-          source={require('../assets/images/NEULogo.png')} 
-          style={styles.logo}
-        />
-        
-        {/* Title */}
-        <Text style={styles.title}>NEUVIS</Text>
-        
-        {/* Subtitle */}
-        <Text style={styles.subtitle}>
-          New Era University Visitor Identification System
-        </Text>
-        
-        {/* QR Code Icon */}
-        <Image 
-          source={require('../assets/images/HeroImage.png')}
-          style={styles.qrCode}
-        />
-        
-        {/* Sign in Button */}
-        <TouchableOpacity style={styles.signInButton}>
-          <Text style={styles.signInText}>Sign in using Google Account</Text>
-        </TouchableOpacity>
-        
-        {/* Privacy Policy Link */}
-        <TouchableOpacity>
-          <Text style={styles.privacyLink}>Privacy & Policy</Text>
-        </TouchableOpacity>
+        <Logo />
+        <Title />
+        <HeroImage />
+        <SignInButton onPress={handleSignIn} />
+        <PrivacyLink />
       </View>
     </SafeAreaView>
   );
@@ -60,6 +77,10 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     marginBottom: 20,
   },
+  titleContainer: {
+    alignItems: 'center',
+    marginBottom: 50,
+  },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
@@ -69,7 +90,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     color: '#666',
-    marginBottom: 50,
   },
   qrCode: {
     width: 180,
@@ -89,10 +109,5 @@ const styles = StyleSheet.create({
   },
   signInText: {
     fontSize: 16,
-  },
-  privacyLink: {
-    fontSize: 14,
-    color: '#0099ff',
-    textDecorationLine: 'underline',
   },
 });
