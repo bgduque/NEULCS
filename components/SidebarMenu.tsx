@@ -40,7 +40,7 @@ export default function SidebarMenu({ visible, onLogout }: SidebarMenuProps) {
 const styles = StyleSheet.create({
   sidebar: {
     position: 'absolute',
-    top: 100,
+    top: 80,
     left: 0,
     backgroundColor: 'white',
     width: '60%',
