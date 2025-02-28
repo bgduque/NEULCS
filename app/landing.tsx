@@ -58,6 +58,7 @@ export default function Landing() {
         <ActionButton 
           icon="qr-code-scanner"
           text="Scan ID to Generate"
+          onPress={() => router.push('/scanner')} // Navigate to scanner.tsx
         />
 
         <ActionButton 
