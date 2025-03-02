@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
-import { useRouter } from 'expo-router';
+import { useRouter, useLocalSearchParams } from 'expo-router';
 import PrivacyLink from '../components/PrivacyLink';
+import { supabase } from '../lib/supabase';
 
-// We could create these components separately if they'll be reused elsewhere in the admin interface
 const Logo = () => (
   <Image 
     source={require('../assets/images/NEULogo.png')} 
@@ -40,9 +40,32 @@ const SignInButton = ({ onPress }: { onPress: () => void }) => (
 
 export default function Home() { 
   const router = useRouter();
+  const params = useLocalSearchParams();
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSignIn = () => {
-    router.push('/landing');
+  useEffect(() => {
+    if (params?.error) {
+      if (params.error === 'invalid_email') {
+        setErrorMessage('❌ Only NEU emails can be admitted.');
+      } else if (params.error === 'auth_failed') {
+        setErrorMessage('❌ Authentication failed. Please try again.');
+      } else if (params.error === 'unexpected') {
+        setErrorMessage('❌ An unexpected error occurred. Please try again.');
+      }
+    }
+  }, [params?.error]);
+
+  const handleSignIn = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: 'http://localhost:8081/auth/callback', // Redirect to auth callback
+      },
+    });
+
+    if (error) {
+      console.error('Error signing in:', error.message);
+    }
   };
 
   return (
@@ -53,6 +76,9 @@ export default function Home() {
         <Logo />
         <Title />
         <HeroImage />
+
+        {errorMessage ? <Text style={styles.errorText}>{errorMessage}</Text> : null}
+
         <SignInButton onPress={handleSignIn} />
         <PrivacyLink />
       </View>
@@ -109,5 +135,11 @@ const styles = StyleSheet.create({
   },
   signInText: {
     fontSize: 16,
+  },
+  errorText: {
+    fontSize: 14,
+    color: 'red',
+    marginBottom: 10,
+    textAlign: 'center',
   },
 });

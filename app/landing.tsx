@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { supabase } from '../lib/supabase';
 
 // Import components
 import Header from '../components/Header';
@@ -20,9 +21,25 @@ export default function Landing() {
     setMenuVisible(!menuVisible);
   };
 
-  const handleLogout = () => {
-    router.push('/home');
+  const handleLogout = async () => {
+    try {
+      console.log("Attempting to log out..."); // Debugging log
+  
+      const { error } = await supabase.auth.signOut();
+  
+      if (error) {
+        console.error("Logout failed:", error.message);
+        alert("Logout failed. Please try again.");
+      } else {
+        console.log("Logout successful"); // Debugging log
+        router.replace('/home'); // Redirect to home screen after logout
+      }
+    } catch (err) {
+      console.error("Unexpected error during logout:", err);
+      alert("An error occurred. Please try again.");
+    }
   };
+  
 
   return (
     <SafeAreaView style={styles.container}>
