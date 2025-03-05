@@ -6,7 +6,6 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { supabase } from '../lib/supabase';
 
-// Import components
 import Header from '../components/Header';
 import SidebarMenu from '../components/SidebarMenu';
 import LogoSection from '../components/LogoSection';

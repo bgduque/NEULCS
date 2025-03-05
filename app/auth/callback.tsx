@@ -9,10 +9,12 @@ export default function AuthCallback() {
     const handleAuthCallback = async () => {
       try {
         const { data, error } = await supabase.auth.getSession();
+        console.log(data);
 
         if (error || !data?.session?.user?.email) {
           console.error('Authentication failed:', error?.message);
           router.replace('/home?error=auth_failed'); // Redirect with error
+          console.log(data);
           return;
         }
 

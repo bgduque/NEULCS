@@ -5,9 +5,6 @@ import { StatusBar } from 'expo-status-bar';
 import { useRouter } from 'expo-router';
 import { MaterialIcons } from '@expo/vector-icons';
 
-// Import components
-import Header from '../components/Header';
-
 export default function PrivacyPolicy() {
   const router = useRouter();
   
